@@ -4,9 +4,11 @@ Burp Suite JSBeautifier
 Most of the websites compress their resources such as JS files in order to increase the loading speed. However, security testing and debugging a compressed resource is not an easy task. This is a Burp Suite open source extension which makes it possible to beautify most of the resources properly. Therefore, it will help the web application security researchers to view the compressed resources easier. It also helps them to have the decompressed versions of the resources (such as JS, CSS, HTML, XML, and so on) inside the browsers to debug them without any problem.
 
 <b>Using the application:</b>
+Step 0- Download ["jsbeautifier.jar"](jsbeautifier/jsbeautifier.jard) file and ["libs"](jsbeautifier/libs/) directory.
+Step 1- In Burp Suite, click on the "Extender" tab, then click on "Add" button and select "jsbeautifier.jar" file.
 
-Step 1- In Burp Suite, click on the Extender tab, then click on Add button and select "jsbeautifier.jar" file.
 Step 2- Now under Extender tab, click on the Options tab; in "Java Environment" section, click on "Select folder ..." button and select the "libs" folder that contains "js.jar" and "rsyntaxtextarea.jar".
+
 Step 3- Now you should be able to see "JSBeautifier Settings" tab in burp suite. You can also manually beautify requests/responses by using right click and selecting the "Beautify This!" option.
 
 <b>Features:</b>
