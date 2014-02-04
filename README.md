@@ -5,7 +5,7 @@ Most of the websites compress their resources such as JS files in order to incre
 
 <b>Using the application:</b>
 
-Step 0- Download ["jsbeautifier.jar"](jsbeautifier/jsbeautifier.jard) file and ["libs"](jsbeautifier/libs/) directory.
+Step 0- Download ["jsbeautifier.jar"](jsbeautifier/jsbeautifier.jar) file and ["libs"](jsbeautifier/libs/) directory.
 
 Step 1- In Burp Suite, click on the "Extender" tab, then click on "Add" button and select "jsbeautifier.jar" file.
 
