@@ -7,11 +7,11 @@ Most of the websites compress their resources such as JS files in order to incre
 
 Step 0- (Downloading) Download ["jsbeautifier.jar"](jsbeautifier/jsbeautifier.jar) file and ["libs"](jsbeautifier/libs/) directory.
 
-Step 1- (Adding Extension) In Burp Suite, click on the "Extender" tab, then click on "Add" button and select "jsbeautifier.jar" file.
+Step 1- (Adding Libraries) Now under "Extender" tab, click on the "Options" tab; in "Java Environment" section, click on "Select folder ..." button and select the "libs" folder that contains "js.jar" and "rsyntaxtextarea.jar".
 
-Step 2- (Adding Libraries) Now under "Extender" tab, click on the "Options" tab; in "Java Environment" section, click on "Select folder ..." button and select the "libs" folder that contains "js.jar" and "rsyntaxtextarea.jar".
+Step 2- (Adding Extension) In Burp Suite, click on the "Extender" tab, then click on "Add" button and select "jsbeautifier.jar" file.
 
-Step 3- (Testing Extension) Now you should be able to see "JSBeautifier Settings" tab in burp suite. You can also manually beautify requests/responses by using right click and selecting the "Beautify This!" option. If it cannot beautify anything, check your Burp Suite extension settings and make sure that you have added the requested libraries.
+Step 3- (Testing Extension) Now you should be able to see "JSBeautifier Settings" tab in burp suite. You can also manually beautify requests/responses by using right click and selecting the "Beautify This!" option. If it cannot beautify anything, check your Burp Suite extension settings and make sure that you have added the requested libraries; Unload/Load the extension and try again.
 
 <b>Features:</b>
 
