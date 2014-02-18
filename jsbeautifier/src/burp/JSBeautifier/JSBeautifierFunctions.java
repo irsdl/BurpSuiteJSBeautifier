@@ -170,7 +170,7 @@ public class JSBeautifierFunctions {
 					responsetHeaderAndBody[1] = deCompress(responsetHeaderAndBody[1]);
 					responsetHeaderAndBody[1] = responsetHeaderAndBody[1].replace("<STYLE my/beautifier>", "");
 					responsetHeaderAndBody[1] = responsetHeaderAndBody[1].replace("</STYLE my/beautifier>", "");
-				}else if(isHtmlXmlFile(responsetHeaderAndBody[0],responsetHeaderAndBody[1])){
+				}else if(isHtmlXmlFile(responsetHeaderAndBody[0],responsetHeaderAndBody[1]) || isDotNetPipeDelimitedResponse(responsetHeaderAndBody[1])){
 					// If it is a HTML or XML file, it should be started with a valid tag
 					responsetHeaderAndBody[1] = "<my beautifier unique thing />"+responsetHeaderAndBody[1];
 					responsetHeaderAndBody[1] = deCompress(responsetHeaderAndBody[1]);
@@ -181,7 +181,13 @@ public class JSBeautifierFunctions {
 					responsetHeaderAndBody[1] = responsetHeaderAndBody[1].replaceAll("(?im)\\/\\/[\\s]+<\\!\\[CDATA\\[", "//<![CDATA[");
 					// Fix possible free space on top (<?xml or <!doctype and so on)
 					responsetHeaderAndBody[1] = responsetHeaderAndBody[1].replaceAll("(?i)^[\\s]+", "");
-
+					
+					// Fix other problems of .Net Pipe-delimited response
+					if(isDotNetPipeDelimitedResponse(responsetHeaderAndBody[1]))
+					{
+						responsetHeaderAndBody[1] = responsetHeaderAndBody[1].replaceAll("(?i)\\\\[\\s]+\"[\\s]*:", "\\\\\":");
+						responsetHeaderAndBody[1] = responsetHeaderAndBody[1].replaceAll("(?i)\\\\[\\s]+\"[\\s]*,", "\\\\\",");
+					}
 					
 				}else{
 					responsetHeaderAndBody[1] = deCompress(responsetHeaderAndBody[1]);
@@ -197,6 +203,7 @@ public class JSBeautifierFunctions {
 				if(BeautifierPreferences.isBeautifyHeadersInManualMode()){
 					requestHeaderAndBody[0] = deCompress(requestHeaderAndBody[0]);
 				}
+				
 				requestHeaderAndBody[0] = requestHeaderAndBody[0].replaceAll("(?im)^content\\-length:[\\ \\t\\d]+$", "Content-Length: "+requestHeaderAndBody[1].length());				
 				break;
 			case 0:
@@ -430,6 +437,15 @@ public class JSBeautifierFunctions {
 		return contentType;
 	}
 
+	// Check to see if it is a Pipe-delimited .Net Ajax response
+	private boolean isDotNetPipeDelimitedResponse(String strBody){
+		boolean result = false;
+		if(strBody.split("|").length > 3 && !strBody.trim().startsWith("<")){
+			result = true; // It seems it is a DotNet delimited response /:)
+		}
+		
+		return result;
+	}
 	// Check to see if it is a CSS file to protect it from being corrupted
 	private boolean isUnprotectedCSSFile(String strHeader, String strBody){
 		boolean result = false;

@@ -98,7 +98,7 @@ IExtensionStateListener, IContextMenuFactory
 	}
 
 	public static void main(String [] args){
-		System.out.println("Build Me");
+		System.out.println("You have built me! Tha Thank you! You can play with the jar file now!");
 	}
 }
 
