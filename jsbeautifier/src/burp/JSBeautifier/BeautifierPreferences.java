@@ -3,10 +3,10 @@ import java.util.prefs.Preferences;
 
 public class BeautifierPreferences {
 	private static Preferences prefs=Preferences.userRoot().node("JSBeautifier");
-	private static final double version = 1.0;
+	private static final double version = 1.1;
 	private static final String appName = "Burp Suite JSBeautifier";
 	private static final String author = "Soroush Dalili (@irsdl)";
-	private static final String authorLink = "http://soroush.secproject.com/blog/";
+	private static final String authorLink = "http://secproject.com/blog/";
 	private static final String projectLink = "https://github.com/irsdl/BurpSuiteJSBeautifier";
 	
 	public synchronized static double getVersionx() {
