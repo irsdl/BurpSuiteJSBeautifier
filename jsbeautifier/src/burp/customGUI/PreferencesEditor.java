@@ -1,24 +1,41 @@
 package burp.customGUI;
 
+import burp.IBurpExtenderCallbacks;
 import burp.ITab;
 import burp.JSBeautifier.BeautifierPreferences;
+import burp.JSBeautifier.JSBeautifierCheckForUpdate;
+
 import java.awt.Component;
+import java.awt.Desktop;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
+
 import javax.swing.JCheckBox;
+
 import java.awt.Insets;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Vector;
+
 import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
 public class PreferencesEditor extends JPanel implements ITab{
-	
+	private final burp.IBurpExtenderCallbacks mCallbacks;
 	private JCheckBox isAutomaticInProxy = new JCheckBox("");
 	private JCheckBox isAutomaticInAll = new JCheckBox("");
 	private JCheckBox isRestrictedToScope = new JCheckBox("");
@@ -37,13 +54,14 @@ public class PreferencesEditor extends JPanel implements ITab{
 	/**
 	 * Create the panel.
 	 */
-	public PreferencesEditor() {
+	public PreferencesEditor(final IBurpExtenderCallbacks mCallbacks) {
+		this.mCallbacks = mCallbacks;
 		setToolTipText("Burp Suite JSBeautifier Settings");
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{47, 211, 231, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel label = new JLabel("   ");
@@ -299,6 +317,13 @@ public class PreferencesEditor extends JPanel implements ITab{
 				setPreferencesValues();
 			}
 		});
+		
+		JLabel label_1 = new JLabel("     ");
+		GridBagConstraints gbc_label_1 = new GridBagConstraints();
+		gbc_label_1.insets = new Insets(0, 0, 5, 5);
+		gbc_label_1.gridx = 1;
+		gbc_label_1.gridy = 9;
+		add(label_1, gbc_label_1);
 		GridBagConstraints gbc_btnResetToOriginal = new GridBagConstraints();
 		gbc_btnResetToOriginal.anchor = GridBagConstraints.WEST;
 		gbc_btnResetToOriginal.insets = new Insets(0, 0, 5, 5);
@@ -306,13 +331,48 @@ public class PreferencesEditor extends JPanel implements ITab{
 		gbc_btnResetToOriginal.gridy = 10;
 		add(btnResetToOriginal, gbc_btnResetToOriginal);
 		
+		JButton btnCheckForUpdate = new JButton("Check For Update");
+		btnCheckForUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JSBeautifierCheckForUpdate checkForUpdate = new burp.JSBeautifier.JSBeautifierCheckForUpdate(mCallbacks);
+					JOptionPane.showMessageDialog(null, checkForUpdate.updateMessage);
+					
+			}
+		});
+		GridBagConstraints gbc_btnCheckForUpdate = new GridBagConstraints();
+		gbc_btnCheckForUpdate.anchor = GridBagConstraints.WEST;
+		gbc_btnCheckForUpdate.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCheckForUpdate.gridx = 1;
+		gbc_btnCheckForUpdate.gridy = 11;
+		add(btnCheckForUpdate, gbc_btnCheckForUpdate);
+		
+		JButton btnOpenExtensionHome = new JButton("Open Extension Home Page");
+		btnOpenExtensionHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openWebpage(burp.JSBeautifier.BeautifierPreferences.getProjectLink());
+			}
+		});
+		GridBagConstraints gbc_btnOpenExtensionHome = new GridBagConstraints();
+		gbc_btnOpenExtensionHome.anchor = GridBagConstraints.WEST;
+		gbc_btnOpenExtensionHome.insets = new Insets(0, 0, 5, 5);
+		gbc_btnOpenExtensionHome.gridx = 1;
+		gbc_btnOpenExtensionHome.gridy = 12;
+		add(btnOpenExtensionHome, gbc_btnOpenExtensionHome);
+		
+		JLabel label_2 = new JLabel("     ");
+		GridBagConstraints gbc_label_2 = new GridBagConstraints();
+		gbc_label_2.insets = new Insets(0, 0, 5, 5);
+		gbc_label_2.gridx = 1;
+		gbc_label_2.gridy = 13;
+		add(label_2, gbc_label_2);
+		
 		JLabel appInfoLabel = new JLabel(BeautifierPreferences.getAppInfo());
 		GridBagConstraints gbc_appInfoLabel = new GridBagConstraints();
 		gbc_appInfoLabel.anchor = GridBagConstraints.WEST;
 		gbc_appInfoLabel.gridwidth = 4;
 		gbc_appInfoLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_appInfoLabel.gridx = 1;
-		gbc_appInfoLabel.gridy = 12;
+		gbc_appInfoLabel.gridy = 14;
 		add(appInfoLabel, gbc_appInfoLabel);
 		
 		
@@ -635,4 +695,24 @@ public class PreferencesEditor extends JPanel implements ITab{
 		return this;
 	}
 
+	public static void openWebpage(URI uri) {
+	    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+	        try {
+	            desktop.browse(uri);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
+	public static void openWebpage(String url) {
+	    try {
+	        openWebpage((new URL(url)).toURI());
+	    } catch (URISyntaxException e) {
+	        e.printStackTrace();
+	    } catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+	}
 }

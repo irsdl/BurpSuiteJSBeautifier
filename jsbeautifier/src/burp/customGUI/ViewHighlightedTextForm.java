@@ -3,7 +3,6 @@ package burp.customGUI;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.*;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

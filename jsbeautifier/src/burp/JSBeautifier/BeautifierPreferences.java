@@ -3,16 +3,19 @@ import java.util.prefs.Preferences;
 
 public class BeautifierPreferences {
 	private static Preferences prefs=Preferences.userRoot().node("JSBeautifier");
-	private static final double version = 1.1;
+	private static final double version = 1.2;
 	private static final String appName = "Burp Suite JSBeautifier";
 	private static final String author = "Soroush Dalili (@irsdl)";
 	private static final String authorLink = "https://secproject.com/";
 	private static final String projectLink = "https://github.com/irsdl/BurpSuiteJSBeautifier";
 	
-	public synchronized static double getVersionx() {
+	public synchronized static double getVersion() {
 		return version;
 	}
 	
+	public synchronized static String getProjectLink() {
+		return projectLink;
+	}
 	public synchronized static String getAppInfo() {
 		return "Name: "+appName + " -Version: " + String.valueOf(version) + " -Source: " + projectLink + " -Author: " + author;
 	}

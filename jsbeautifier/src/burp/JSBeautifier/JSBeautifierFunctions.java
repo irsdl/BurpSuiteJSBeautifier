@@ -15,11 +15,8 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.swing.JOptionPane;
-
 import org.mozilla.javascript.*;
-
 import burp.IBurpExtenderCallbacks;
 import burp.IHttpRequestResponse;
 import burp.JSBeautifier.UnicodeBOMInputStream.BOM;

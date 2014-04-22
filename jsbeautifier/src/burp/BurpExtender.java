@@ -4,7 +4,10 @@ import java.net.URL;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JMenuItem;
+
+import burp.JSBeautifier.JSBeautifierCheckForUpdate;
 
 
 public class BurpExtender implements IBurpExtender, IHttpListener, 
@@ -35,9 +38,26 @@ IExtensionStateListener, IContextMenuFactory
         callbacks.registerContextMenuFactory(this);
         
         // add JSBeautifier settings tab
-        mCallbacks.addSuiteTab(new burp.customGUI.PreferencesEditor());
+        mCallbacks.addSuiteTab(new burp.customGUI.PreferencesEditor(mCallbacks));
         
         stdout.println("Loading... "+burp.JSBeautifier.BeautifierPreferences.getAppInfo());
+        
+        try { 
+       	 	Class.forName( "org.mozilla.javascript.tools.shell.Main" );
+	   	} catch( ClassNotFoundException e ) {
+	   		stdout.println("Fatal Error: Error in loading Rhino (js.jar) library.\r\nThis extension cannot work without this library.\r\n"
+	   				+ "Please reload this extension after adding this library to the Java Environment section.");
+	   		mCallbacks.unloadExtension();
+	   		return;
+	   	}
+        
+        try { 
+        	 Class.forName( "org.fife.ui.rtextarea.RTextArea" );
+    	} catch( ClassNotFoundException e ) {
+    		stdout.println("Warning: Error in loading rsyntaxtextarea.jar library.\r\nThis extension may not work properly without this library.\r\n"
+    				+ "Please reload this extension after adding this library to the Java Environment section.");
+    	}     
+        
 	}
 
 

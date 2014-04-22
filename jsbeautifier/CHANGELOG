@@ -1,3 +1,9 @@
+v 1.2
+=========================================================================
+- Check for the libraries before loading
+- Check For Update button
+- Open Extension Home Page button
+
 v 1.1
 =========================================================================
 - Fixing .Net Pipe-delimited Ajax responses issues
